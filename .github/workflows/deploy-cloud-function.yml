@@ -41,10 +41,6 @@ jobs:
         with:
           project_id: ${{ secrets.PROJECT_ID }}
 
-      - name: Clean up credentials file
-        run: |
-          rm -f gha-creds-*.json
-
       - name: Set upload config
         id: set-conf
         run: |
@@ -68,3 +64,7 @@ jobs:
               --memory=512MB \
               --allow-unauthenticated \
               --no-gen2
+
+      - name: Clean up credentials file
+        run: |
+          rm -f gha-creds-*.json

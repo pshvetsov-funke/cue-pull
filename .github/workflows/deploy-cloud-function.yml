@@ -12,7 +12,8 @@ env:
   PROJECT_ID: fmg-regio-data-as
   REGION: europe-west3
   SUBSCRIPTION_NAME: cue-playout-subscription
-  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
+  # TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
+  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated
   DLQ_TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deadletter
   # SERVICE_ACCOUNT: cloud-run-function-deployer@fmg-regio-data-as.iam.gserviceaccount.com
   # SERVICE_ACCOUNT_FOR_GITHUB_ACTIONS: cloud-run-function-deployer@fmg-regio-data-as.iam.gserviceaccount.com
@@ -59,7 +60,7 @@ jobs:
               --source . \
               --trigger-http \
               --entry-point pull_and_process_messages \
-              --set-env-vars "GCP_PROJECT='${{ env.PROJECT_ID }}',SUBSCRIPTION_NAME='${{ env.SUBSCRIPTION_NAME }}',TABLE_ID='${{ env.TABLE_ID }}',DLQ_TABLE_ID='${{ env.DLQ_TABLE_ID }}'" \
+              --set-env-vars "GCP_PROJECT=${{ env.PROJECT_ID }},SUBSCRIPTION_NAME=${{ env.SUBSCRIPTION_NAME }},TABLE_ID=${{ env.TABLE_ID }},DLQ_TABLE_ID=${{ env.DLQ_TABLE_ID }}" \
               --timeout=60s \
               --memory=512MB \
               --allow-unauthenticated \

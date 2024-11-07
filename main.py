@@ -8,7 +8,7 @@ from google.cloud import pubsub_v1
 from google.cloud import bigquery
 from google.api_core.exceptions import DeadlineExceeded
 
-from utils.helpers import process_message
+from utils.helpers import process_message, generate_insert_id
 
 # Create a logger
 logger = logging.getLogger(__name__)
@@ -90,6 +90,7 @@ def pull_and_process_messages(request, dev_evn=None):
             ack_ids = []
             rows_to_insert = []
             dlq_rows = []
+            insert_ids = []
 
             logging.info("Start processing messages.")            
             for received_message in response.received_messages:
@@ -109,6 +110,10 @@ def pull_and_process_messages(request, dev_evn=None):
                     processed_message = process_message(message_dict)
                     rows_to_insert.append(processed_message)
                     ack_ids.append(received_message.ack_id)
+
+                    # Generate insertId
+                    insert_id = generate_insert_id(processed_message)
+                    insert_ids.append(insert_id)
                 except Exception as e:
                     logger.error(f"Error processing message: {e}")
                     # Prepare the message for DLQ
@@ -131,8 +136,14 @@ def pull_and_process_messages(request, dev_evn=None):
                 logger.info("Start inserting messages to BQ")
 
                 for i in range(0, len(rows_to_insert), 100):
+                    #TODO This part should be implemented better
                     batch = rows_to_insert[i:i + 100]
-                    errors = bigquery_client.insert_rows_json(TABLE_ID, batch)
+                    batch_ids = insert_ids[i:i + 100]
+                    errors = bigquery_client.insert_rows_json(
+                        table=TABLE_ID,
+                        json_rows=batch,
+                        row_ids=batch_ids
+                    )
                     if errors:
                         logger.error(f"Errors occurred during batch insertion: {errors}")
                         # Implement retry logic if necessary
@@ -197,15 +208,3 @@ def pull_and_process_messages(request, dev_evn=None):
         return (f"An error occurred: {e}", 500)
 
 
-if __name__ == "__main__":
-    #TODO check duplicates. Is there a case when a message is not aknowledged,
-    # despite being processed?
-
-    # Local dev case
-    env_vars = {
-        'GCP_PROJECT': 'fmg-regio-data-as',
-        'SUBSCRIPTION_NAME': 'cue-playout-subscription',
-        'TABLE_ID': 'fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated',
-        'DLQ_TABLE_ID': 'fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deadletter'
-    }
-    pull_and_process_messages(None, dev_evn=env_vars)

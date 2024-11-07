@@ -201,7 +201,7 @@ if __name__ == "__main__":
     #TODO check duplicates. Is there a case when a message is not aknowledged,
     # despite being processed?
 
-    # Dev case
+    # Local dev case
     env_vars = {
         'GCP_PROJECT': 'fmg-regio-data-as',
         'SUBSCRIPTION_NAME': 'cue-playout-subscription',

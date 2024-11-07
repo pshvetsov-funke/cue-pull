@@ -14,15 +14,6 @@ from utils.helpers import process_message, generate_insert_id
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Check if the logger already has handlers to avoid adding duplicate handlers
-if not logger.hasHandlers():
-    # Create a StreamHandler to output logs to the console (stdout)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-
 # Initialize clients outside the function scope for better performance
 subscriber_client = pubsub_v1.SubscriberClient()
 bigquery_client = bigquery.Client()

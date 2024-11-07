@@ -28,7 +28,7 @@ subscriber_client = pubsub_v1.SubscriberClient()
 bigquery_client = bigquery.Client()
     
 # Environment variables
-PROJECT_ID = os.environ.get('GCP_PROJECT') or os.environ.get('GOOGLE_CLOUD_PROJECT')
+PROJECT_ID = os.environ.get('GCP_PROJECT')
 SUBSCRIPTION_NAME = os.environ.get('SUBSCRIPTION_NAME')
 TABLE_ID = os.environ.get('TABLE_ID')
 DLQ_TABLE_ID = os.environ.get('DLQ_TABLE_ID')
@@ -38,13 +38,7 @@ def pull_and_process_messages(request):
     HTTP Cloud Function triggered by Cloud Scheduler.
     Pulls messages from a Pub/Sub subscription, processes them, and writes to BigQuery.
     """
-    dev_env = request.get('dev_env', None)
-    if dev_env:
-        PROJECT_ID = dev_env.get('GCP_PROJECT')
-        SUBSCRIPTION_NAME = dev_env.get('SUBSCRIPTION_NAME')
-        TABLE_ID = dev_env.get('TABLE_ID')
-        DLQ_TABLE_ID = dev_env.get('DLQ_TABLE_ID')
-
+    
     start_time_glob = datetime.now()
     try:
         logger.info(f"Function triggered at {datetime.now(UTC).isoformat()}")
@@ -207,20 +201,3 @@ def pull_and_process_messages(request):
     except Exception as e:
         logger.exception(f"An error occurred: {e}")
         return (f"An error occurred: {e}", 500)
-
-
-if __name__ == "__main__":
-    #TODO check duplicates. Is there a case when a message is not aknowledged,
-    # despite being processed?
-
-    # Local dev case
-    env_vars = {
-        'GCP_PROJECT': 'fmg-regio-data-as',
-        'SUBSCRIPTION_NAME': 'cue-playout-subscription',
-        'TABLE_ID': 'fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated',
-        'DLQ_TABLE_ID': 'fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deadletter'
-    }
-    request = {
-        'dev_env': env_vars
-    }
-    pull_and_process_messages(request)

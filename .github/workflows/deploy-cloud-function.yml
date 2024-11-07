@@ -12,13 +12,10 @@ env:
   PROJECT_ID: fmg-regio-data-as
   REGION: europe-west3
   SUBSCRIPTION_NAME: cue-playout-subscription
-  # TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
-  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated
+  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
+  # TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated
   DLQ_TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deadletter
-  # SERVICE_ACCOUNT: cloud-run-function-deployer@fmg-regio-data-as.iam.gserviceaccount.com
-  # SERVICE_ACCOUNT_FOR_GITHUB_ACTIONS: cloud-run-function-deployer@fmg-regio-data-as.iam.gserviceaccount.com
-  # WORKLOAD_IDENTITY_PROVIDER_GITHUB_ACTIONS: projects/<project_number>/locations/global/workloadIdentityPools/github/providers/github-provider
-
+  
 jobs:
   deploy:
     if: github.event_name == 'pull_request'|| github.event_name == 'push'

@@ -67,4 +67,4 @@ jobs:
 
       - name: Clean up credentials file
         run: |
-          rm -f gha-creds-*.json
+          rm -f gha-creds-*.json 

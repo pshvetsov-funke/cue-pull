@@ -12,8 +12,8 @@ env:
   PROJECT_ID: fmg-regio-data-as
   REGION: europe-west3
   SUBSCRIPTION_NAME: cue-playout-subscription
-  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
-  # TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated
+  # TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout
+  TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deduplicated
   DLQ_TABLE_ID: fmg-regio-data-as.dev_psh_source.dev_src_spark_articles_playout_deadletter
   
 jobs:

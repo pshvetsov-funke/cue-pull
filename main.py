@@ -125,6 +125,11 @@ def pull_and_process_messages(request):
                     #TODO This part should be implemented better
                     batch = rows_to_insert[i:i + 100]
                     batch_ids = insert_ids[i:i + 100]
+
+                    # Add timestamp
+                    for b in batch:
+                        b['ingestionTimestamp'] =  datetime.now(UTC).isoformat()
+
                     errors = bigquery_client.insert_rows_json(
                         table=TABLE_ID,
                         json_rows=batch,

@@ -15,7 +15,7 @@ class Parser:
         self.total_received_messages = 0
         self.total_acknowledged_messages = 0
         self.unique_messages = set()
-        self.duplicate_count = 0
+        self.total_duplicate_count = 0
 
         # Step for BigQuery batch injection. If it is too big - more memory is required.
         # Step of 100 show itself good for cloud run function instance size of 512 MB
@@ -41,6 +41,7 @@ class Parser:
         self.iter_ack_ids = []
         self.iter_rows_to_insert = []
         self.iter_dlq_rows = []
+        self.iter_duplicate_count = 0
 
 
     def process_message(self, received_message):
@@ -111,7 +112,7 @@ class Parser:
 
         # Check if the message was processed
         if message_hash in self.unique_messages:
-            self.duplicate_count += 1
+            self.iter_duplicate_count += 1
             self.iter_ack_ids.append(ack_id)
             is_duplicate = True
             return is_duplicate, message_hash

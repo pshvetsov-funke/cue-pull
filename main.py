@@ -77,7 +77,8 @@ def pull_and_process_messages(request):
                     parser.add_message_to_dlq(received_message, e)
 
             # Print out summary
-            logger.info(f"Number of duplicated messages removed: {parser.duplicate_count}")
+            logger.info(f"Number of duplicated messages removed: {parser.iter_duplicate_count}")
+            parser.total_duplicate_count += parser.iter_duplicate_count
 
             # Insert successfully processed messages into BigQuery
             if parser.iter_rows_to_insert:
@@ -163,6 +164,7 @@ def pull_and_process_messages(request):
             logger.info(f"Iteration elapsed time: {end_time_loc - start_time_loc}")
 
         logger.info(f"Total messages processed: {parser.total_messages_processed}")
+        logger.info(f"Total duplicates removed: {parser.total_duplicate_count}")
         end_time_glob = datetime.now()
         logger.info(f"Total elapsed time: {end_time_glob - start_time_glob}")
         return ('', 200)

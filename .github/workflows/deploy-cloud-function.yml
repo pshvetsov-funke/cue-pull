@@ -58,7 +58,7 @@ jobs:
               --trigger-http \
               --entry-point pull_and_process_messages \
               --set-env-vars "GCP_PROJECT=${{ env.PROJECT_ID }},SUBSCRIPTION_NAME=${{ env.SUBSCRIPTION_NAME }},TABLE_ID=${{ env.TABLE_ID }},DLQ_TABLE_ID=${{ env.DLQ_TABLE_ID }}" \
-              --timeout=120s \
+              --timeout=240s \
               --memory=512MB \
               --allow-unauthenticated \
               --no-gen2

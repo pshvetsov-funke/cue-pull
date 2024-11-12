@@ -12,6 +12,7 @@
 # below:
 .git
 .gitignore
+.env
 gha-creds-*.json
 
 node_modules

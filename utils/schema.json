@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Article Data Schema",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "Unique identifier for the record"
+      },
+      "articleId": {
+        "type": "integer",
+        "description": "Unique identifier for the related article"
+      },
+      "publication": {
+        "type": "string",
+        "description": "Publication type or name"
+      },
+      "url": {
+        "type": ["string", "null"],
+        "description": "Complete URL of the article"
+      },
+      "relativeUrl": {
+        "type": ["string", "null"],
+        "description": "Relative URL path of the article"
+      },
+      "statusCode": {
+        "type": ["integer", "null"],
+        "description": "HTTP status code for the URL"
+      },
+      "forwardUrl": {
+        "type": ["string", "null"],
+        "description": "URL to which the request is forwarded if applicable"
+      },
+      "title": {
+        "type": ["string", "null"],
+        "description": "Title of the article"
+      },
+      "content": {
+        "type": ["string", "null"],
+        "description": "Content of the article in JSON format"
+      },
+      "firstPublicationDate": {
+        "type": ["string", "null"],
+        "format": "date-time",
+        "description": "Timestamp of the article's first publication"
+      },
+      "lastPublicationDate": {
+        "type": ["string", "null"],
+        "format": "date-time",
+        "description": "Timestamp of the article's last publication"
+      },
+      "db1FullLastUpdateHash": {
+        "type": ["integer", "null"],
+        "description": "Hash representing the last full update in Content DB"
+      },
+      "lastUpdate": {
+        "type": ["string", "null"],
+        "format": "date-time",
+        "description": "Timestamp of the last update to this article"
+      },
+      "version": {
+        "type": ["integer", "null"],
+        "description": "Version of the article schema or format"
+      },
+      "playoutType": {
+        "type": ["string", "null"],
+        "description": "Type of playout for the article"
+      },
+      "ingestionTimestamp": {
+        "type": ["string", "null"],
+        "format": "date-time",
+        "description": "Timestamp when the article was ingested into the database"
+      },
+      "source": {
+        "type": ["string", "null"],
+        "description": "Data source for the article"
+      },
+      "contentHashCode": {
+        "type": ["integer", "null"],
+        "description": "Hash code of the article's content"
+      },
+      "lastUpdateHash": {
+        "type": ["integer", "null"],
+        "description": "Hash code of the last update"
+      }
+    },
+    "required": ["id", "articleId", "publication"]
+  }
+  

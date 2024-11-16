@@ -2,6 +2,15 @@ import os
 import json
 
 def json_schema_to_bq_fields(properties, required_fields):
+    """Transform validation JSON schema into BigQuery table definition schema
+
+    Args:
+        properties (dict): dictionary with fields, their type and description
+        required_fields (list): list of required field names
+
+    Returns:
+        list: list of dict, that contains BQ table specification
+    """
     bq_fields = []
     for field_name, field_props in properties.items():
         field = {}
@@ -63,9 +72,39 @@ def json_schema_to_bq_fields(properties, required_fields):
 
     return bq_fields
 
+
+def get_json_deadletter_schema():
+    """Get default deadletter schema. Store here for centralization purposes.
+
+    Returns:
+        list: list of dictionaries, that define JSON schema
+    """
+    bq_deadletter_schema = [
+        {
+            'name': 'timestamp',
+            'type': 'TIMESTAMP',
+            'mode': 'REQUIRED',
+            'description': 'Timestamp of when the error occured'
+        },
+        {
+            'name': 'message_data',
+            'type': 'STRING',
+            'mode': 'REQUIRED',
+            'description': 'Original, unparsed message content'
+        },
+        {
+            'name': 'error_message',
+            'type': 'STRING',
+            'mode': 'REQUIRED',
+            'description': 'The error text, to help identify the issue'
+        }
+    ]
+    return bq_deadletter_schema
+
+
 if __name__ == "__main__":
     # Load your JSON Schema
-    with open('./utils/schema.json', 'r') as f:
+    with open('./pull-cue-ex-playout/utils/validation_schema.json', 'r') as f:
         json_schema = json.load(f)
 
     # Start conversion from the root properties
@@ -73,10 +112,16 @@ if __name__ == "__main__":
     bq_schema = json_schema_to_bq_fields(json_schema['properties'], required_fields)
 
     # Ensure the 'schemas' directory exists
-    schemas_dir = './infrastructure/schemas'
+    schemas_dir = './infra/modules'
     os.makedirs(schemas_dir, exist_ok=True)
 
     # Save the BigQuery schema to a JSON file
     schema_file_path = os.path.join(schemas_dir, 'bq_schema.json')
     with open(schema_file_path, 'w') as f:
         json.dump(bq_schema, f, indent=2)
+
+    # Write default deadletter schema
+    bq_deadletter_schema = get_json_deadletter_schema()
+    deadletter_schema_file_path = os.path.join(schemas_dir, 'bq_deadletter_schema.json')
+    with open(deadletter_schema_file_path, 'w') as f:
+        json.dump(bq_deadletter_schema, f, indent=2)

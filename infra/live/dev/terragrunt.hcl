@@ -31,7 +31,8 @@ inputs = {
   scheduler_service_account = "823771140216-compute@developer.gserviceaccount.com"
 
   # Cloud Storage
-  function_deploy_bucket = "cue-ex-playout-function-deploy-tmp-bucket"
+  # function_deploy_bucket = "cue-ex-playout-function-deploy-tmp-bucket"
+  function_deploy_bucket = "cloudrun-function-deploy-bucket"
 
   # BigQuery
   table_id = "dev_src_spark_articles_playout"

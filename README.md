@@ -2,7 +2,7 @@
 This repository contains cloud run function code and infrastructure code (terraform) for the pipeline to transfer article metadata (previously playout data) into BigQuery warehouse. This pipeline should replace the data-spark-ingest pipeline.
 
 # Architecture
-![architecture](./images/architecture.PNG)
+![architecture](./images/architecture.png)
 
 # Pre-requisites
 ## Python

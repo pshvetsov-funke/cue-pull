@@ -1,0 +1,20 @@
+[
+  {
+    "name": "timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "Timestamp of when the error occured"
+  },
+  {
+    "name": "message_data",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Original, unparsed message content"
+  },
+  {
+    "name": "error_message",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "The error text, to help identify the issue"
+  }
+]

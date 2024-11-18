@@ -27,7 +27,7 @@ class Parser:
         self.max_iterations = max_iterations
 
         # Load json schema for later message validation from file
-        with open('./utils/schema.json', 'r') as schema_file:
+        with open('./utils/validation_schema.json', 'r') as schema_file:
             self.json_schema = json.load(schema_file)
         
         if not self.json_schema:
@@ -138,5 +138,5 @@ class Parser:
             message_dict (dict): message
         """
         # Some future transformation (if there should be one)
-        message_dict['hash'] = message_hash
+        message_dict['content_hash'] = message_hash
         return message_dict

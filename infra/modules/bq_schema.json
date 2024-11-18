@@ -1,0 +1,122 @@
+[
+  {
+    "name": "id",
+    "type": "INT64",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the record"
+  },
+  {
+    "name": "articleId",
+    "type": "INT64",
+    "mode": "REQUIRED",
+    "description": "Unique identifier for the related article"
+  },
+  {
+    "name": "publication",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Publication type or name"
+  },
+  {
+    "name": "url",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Complete URL of the article"
+  },
+  {
+    "name": "relativeUrl",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Relative URL path of the article"
+  },
+  {
+    "name": "statusCode",
+    "type": "INT64",
+    "mode": "NULLABLE",
+    "description": "HTTP status code for the URL"
+  },
+  {
+    "name": "forwardUrl",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "URL to which the request is forwarded if applicable"
+  },
+  {
+    "name": "title",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Title of the article"
+  },
+  {
+    "name": "content",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Content of the article in JSON format"
+  },
+  {
+    "name": "firstPublicationDate",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Timestamp of the article's first publication"
+  },
+  {
+    "name": "lastPublicationDate",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Timestamp of the article's last publication"
+  },
+  {
+    "name": "db1FullLastUpdateHash",
+    "type": "INT64",
+    "mode": "NULLABLE",
+    "description": "Hash representing the last full update in Content DB"
+  },
+  {
+    "name": "lastUpdate",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Timestamp of the last update to this article"
+  },
+  {
+    "name": "version",
+    "type": "INT64",
+    "mode": "NULLABLE",
+    "description": "Version of the article schema or format"
+  },
+  {
+    "name": "playoutType",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Type of playout for the article"
+  },
+  {
+    "name": "ingestionTimestamp",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Timestamp when the article was ingested into the database"
+  },
+  {
+    "name": "source",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Data source for the article"
+  },
+  {
+    "name": "contentHashCode",
+    "type": "INT64",
+    "mode": "NULLABLE",
+    "description": "Hash code of the article's content"
+  },
+  {
+    "name": "lastUpdateHash",
+    "type": "INT64",
+    "mode": "NULLABLE",
+    "description": "Hash code of the last update"
+  },
+  {
+    "name": "content_hash",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Content that was hashed in order to uniquely identify messages"
+  }
+]

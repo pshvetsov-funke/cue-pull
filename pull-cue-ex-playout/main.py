@@ -61,8 +61,7 @@ def pull_and_process_messages(request):
                 logger.info(f"Pull deadline exceeded. No messages available.")
                 response = -1
             except Exception as e:
-                logger.exception(f"Couldn't pull the messages. Error: {e}")
-                raise
+                logger.error(f"Couldn't pull the messages. Error: {e}")
 
             if response == -1 or not response.received_messages:
                 logger.info("No messages available.")
@@ -74,7 +73,7 @@ def pull_and_process_messages(request):
                 try:
                     parser.process_message(received_message)
                 except Exception as e:
-                    logger.exception(f"Error processing message: {e}")
+                    logger.error(f"Error processing message: {e}")
                     parser.add_message_to_dlq(received_message, e)
 
             # Print out summary

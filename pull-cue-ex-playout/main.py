@@ -7,6 +7,7 @@ from google.cloud import pubsub_v1
 from google.cloud import bigquery
 from google.api_core.exceptions import DeadlineExceeded
 
+from utils.logging import setup_logging
 from utils.parser import Parser
 
 # # Debug stuff
@@ -14,8 +15,7 @@ from utils.parser import Parser
 # load_dotenv()
 
 # Create a logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger = setup_logging()
 
 # Initialize clients outside the function scope for better performance
 subscriber_client = pubsub_v1.SubscriberClient()
@@ -61,7 +61,8 @@ def pull_and_process_messages(request):
                 logger.info(f"Pull deadline exceeded. No messages available.")
                 response = -1
             except Exception as e:
-                logger.error(f"Couldn't pull the messages. Error: {e}")
+                logger.exception(f"Couldn't pull the messages. Error: {e}")
+                raise
 
             if response == -1 or not response.received_messages:
                 logger.info("No messages available.")
@@ -73,7 +74,7 @@ def pull_and_process_messages(request):
                 try:
                     parser.process_message(received_message)
                 except Exception as e:
-                    logger.error(f"Error processing message: {e}")
+                    logger.exception(f"Error processing message: {e}")
                     parser.add_message_to_dlq(received_message, e)
 
             # Print out summary

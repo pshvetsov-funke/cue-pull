@@ -32,13 +32,14 @@ inputs = {
 
   # Cloud Storage
   # function_deploy_bucket = "cue-ex-playout-function-deploy-tmp-bucket"
-  function_deploy_bucket = "cloudrun-function-deploy-bucket"
+  function_deploy_bucket = "fmg-regio-data-as-functions"
 
   # BigQuery
   table_id = "dev_src_spark_articles_playout"
   dataset_id = "dev_psh_source"
   table_deadletter_id = "dev_src_spark_articles_playout_deadletter"
   table_protect = false
+  deletion_protection = false
     
   default_labels = {
       environment = "dev"

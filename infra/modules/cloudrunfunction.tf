@@ -19,7 +19,7 @@ resource "google_storage_bucket_object" "archive" {
   # Why not just index.zip? If source code changes, terraform cannot detect it.
   # So cloud run function will not be redeployed. Provide unique filename to always
   # redeploy the function if content is changed.
-  name   = "${var.cloud_run_function_name}/index_${data.archive_file.function_src.output_md5}.zip"
+  name   = "${var.cloud_run_function_name}_${data.archive_file.function_src.output_md5}.zip"
   bucket = data.google_storage_bucket.cloud_run_function_deployment_bucket.name
   source = "${path.module}/index.zip"
   depends_on = [ data.archive_file.function_src ]

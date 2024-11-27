@@ -73,3 +73,8 @@ variable "scheduler_service_account" {
   type = string
   description = "Service account for cloud scheduler (uses pre-existing account)"
 }
+
+variable "deletion_protection" {
+  type = bool
+  description = "Deletion protection flag. False - can be deleted by terraform?"
+}

@@ -20,14 +20,14 @@ inputs = {
   
   # PubSub
   subscription_name = "cue-ex-playout-subscription-dev"
-  pubsub_topic_id = "data-spark-article-playout"
+  pubsub_topic_id = "cue-ex-playout-topic"
 
   # Cloud Run Function
-  cloud_run_function_name = "pull-cue-ex-playout-dev"
-  function_src_dir = "${get_terragrunt_dir()}/../../../pull-cue-ex-playout"
+  cloud_run_function_name = "cue-ex-playout-dev"
+  function_src_dir = "${get_terragrunt_dir()}/../../../cue-ex-playout"
 
   # Cloud Scheduler
-  scheduler_job_name = "pull-cue-ex-playout-trigger-dev"
+  scheduler_job_name = "cue-ex-playout-trigger-dev"
   scheduler_service_account = "823771140216-compute@developer.gserviceaccount.com"
 
   # Cloud Storage
@@ -38,8 +38,7 @@ inputs = {
   table_id = "dev_src_spark_articles_playout"
   dataset_id = "dev_psh_source"
   table_deadletter_id = "dev_src_spark_articles_playout_deadletter"
-  table_protect = false
-  deletion_protection = false
+  bq_deletion_protection = false
     
   default_labels = {
       environment = "dev"

@@ -104,7 +104,7 @@ def get_json_deadletter_schema():
 
 if __name__ == "__main__":
     # Load your JSON Schema
-    with open('./pull-cue-ex-playout/utils/validation_schema.json', 'r') as f:
+    with open('./cue-ex-playout/utils/validation_schema.json', 'r') as f:
         json_schema = json.load(f)
 
     # Start conversion from the root properties

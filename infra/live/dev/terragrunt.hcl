@@ -5,8 +5,8 @@ terraform {
 remote_state {
   backend = "gcs"
   config = {
-    bucket = "cue-ex-playout-terraform-state"
-    prefix = "dev/state"
+    bucket = "terraform-state-bucket-data-pe" # cue-ex-playout-terraform-state
+    prefix = "cue-ex-playout/dev/state"
     credentials = "${get_terragrunt_dir()}/../../secrets/fmg-regio-data-as-03ddb544b117.json"
   }
 }

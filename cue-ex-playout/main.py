@@ -10,10 +10,6 @@ from google.api_core.exceptions import DeadlineExceeded
 from utils.logging import setup_logging
 from utils.parser import Parser
 
-# # Debug stuff
-# from dotenv import load_dotenv
-# load_dotenv()
-
 # Create a logger
 logger = setup_logging()
 
@@ -82,7 +78,7 @@ def pull_and_process_messages(request):
 
             # Insert successfully processed messages into BigQuery
             if parser.iter_rows_to_insert:
-                logger.info("Start inserting messages to BQ")
+                logger.info(f"Start inserting messages to BQ table: {TABLE_ID}")
                 insertion_errors = []
                 for i in range(0, len(parser.iter_rows_to_insert), parser.BQI_STEP):
                     batch = parser.iter_rows_to_insert[i:i + parser.BQI_STEP]

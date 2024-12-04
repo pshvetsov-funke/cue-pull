@@ -1,89 +1,210 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Article Data Schema",
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "integer",
-        "description": "Unique identifier for the record"
-      },
-      "articleId": {
-        "type": "integer",
-        "description": "Unique identifier for the related article"
-      },
-      "publication": {
-        "type": "string",
-        "description": "Publication type or name"
-      },
-      "url": {
-        "type": ["string", "null"],
-        "description": "Complete URL of the article"
-      },
-      "relativeUrl": {
-        "type": ["string", "null"],
-        "description": "Relative URL path of the article"
-      },
-      "statusCode": {
-        "type": ["integer", "null"],
-        "description": "HTTP status code for the URL"
-      },
-      "forwardUrl": {
-        "type": ["string", "null"],
-        "description": "URL to which the request is forwarded if applicable"
-      },
-      "title": {
-        "type": ["string", "null"],
-        "description": "Title of the article"
-      },
-      "content": {
-        "type": ["string", "null"],
-        "description": "Content of the article in JSON format"
-      },
-      "firstPublicationDate": {
-        "type": ["string", "null"],
-        "format": "date-time",
-        "description": "Timestamp of the article's first publication"
-      },
-      "lastPublicationDate": {
-        "type": ["string", "null"],
-        "format": "date-time",
-        "description": "Timestamp of the article's last publication"
-      },
-      "db1FullLastUpdateHash": {
-        "type": ["integer", "null"],
-        "description": "Hash representing the last full update in Content DB"
-      },
-      "lastUpdate": {
-        "type": ["string", "null"],
-        "format": "date-time",
-        "description": "Timestamp of the last update to this article"
-      },
-      "version": {
-        "type": ["integer", "null"],
-        "description": "Version of the article schema or format"
-      },
-      "playoutType": {
-        "type": ["string", "null"],
-        "description": "Type of playout for the article"
-      },
-      "ingestionTimestamp": {
-        "type": ["string", "null"],
-        "format": "date-time",
-        "description": "Timestamp when the article was ingested into the database"
-      },
-      "source": {
-        "type": ["string", "null"],
-        "description": "Data source for the article"
-      },
-      "contentHashCode": {
-        "type": ["integer", "null"],
-        "description": "Hash code of the article's content"
-      },
-      "lastUpdateHash": {
-        "type": ["integer", "null"],
-        "description": "Hash code of the last update"
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "articleId": {
+      "type": "string"
+    },
+    "overridingArticleId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "overriddenArticleIds": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
       }
     },
-    "required": ["id", "articleId", "publication"]
+    "forwardUrl": {
+      "type": ["string","null"]
+    },
+    "publication": {
+      "type": "string"
+    },
+    "ownerPublication": {
+      "type": "string"
+    },
+    "canonicalOwnerPublication": {
+      "type": ["string", "null"]
+    },
+    "canonicalUrl": {
+      "type": ["string", "null"]
+    },
+    "firstPublishDate": {
+      "type": "string"
+    },
+    "publishDate": {
+      "type": "string"
+    },
+    "lastModificationDate": {
+      "type": "string"
+    },
+    "relativeUrl": {
+      "type": "string"
+    },
+    "title": {
+      "type": ["string", "null"]
+    },
+    "type": {
+      "type": "string"
+    },
+    "httpStatus": {
+      "type": "integer"
+    },
+    "description": {
+      "description": "Contains the SEO description of the article or the regular desciption if no SEO description is available",
+      "type": ["string", "null"]
+    },
+    "homeSection": {
+      "$ref": "#/$defs/sectionPath"
+    },
+    "storyline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "body": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "readingTimeInMinutes": {
+      "type": ["number", "null"]
+    },
+    "authors": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "source": {
+      "type": "string"
+    },
+    "location": {
+      "type": ["string", "null"]
+    },
+    "imageUrl": {
+      "description": "The base URL for the opener image of the article. Append v16_9_600.jpeg for 16:9 format",
+      "type": ["string", "null"]
+    },
+    "tags": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "displayName",
+          "name"
+        ]
+      }
+    },
+    "hasVideoOpener": {
+      "type": "boolean"
+    },
+    "hasVideo": {
+      "type": "boolean"
+    },
+    "hasImageGalleryOpener": {
+      "type": "boolean"
+    },
+    "hasImageGallery": {
+      "type": "boolean"
+    },
+    "hasLinks": {
+      "type": "boolean"
+    },
+    "paidContentStatus:": {
+      "enum": ["free", "paid", "default", null]
+    },
+    "themePages": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "path"
+        ]
+      }
+    }
+  },
+  "required": [
+    "articleId",
+    "firstPublishDate",
+    "hasImageGallery",
+    "hasImageGalleryOpener",
+    "hasLinks",
+    "hasVideo",
+    "hasVideoOpener",
+    "homeSection",
+    "lastModificationDate",
+    "ownerPublication",
+    "publication",
+    "publishDate",
+    "relativeUrl",
+    "source",
+    "httpStatus",
+    "timestamp",
+    "type",
+    "schemaVersion"
+  ],
+  "$defs": {
+    "sectionPath": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unique_name": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "pathSegment": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "display_name",
+          "path",
+          "pathSegment",
+          "unique_name"
+        ]
+      }
+    }
   }
-  
+}

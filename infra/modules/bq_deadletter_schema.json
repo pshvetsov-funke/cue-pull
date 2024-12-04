@@ -3,7 +3,7 @@
     "name": "timestamp",
     "type": "TIMESTAMP",
     "mode": "REQUIRED",
-    "description": "Timestamp of when the error occured"
+    "description": "Timestamp of when the error occurred"
   },
   {
     "name": "message_data",

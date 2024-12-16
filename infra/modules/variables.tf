@@ -78,3 +78,8 @@ variable "bq_deletion_protection" {
   type = bool
   description = "Deletion protection flag. False - can be deleted by terraform?"
 }
+
+variable "pubsub_retention_duration" {
+  type = string
+  description = "Retention duration of PubSub topic"
+}

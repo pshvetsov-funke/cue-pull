@@ -20,6 +20,7 @@ class JsonFormatter(logging.Formatter):
             'module': record.module,
             'function': record.funcName,
             'line': record.lineno,
+            'alerting_policy': 'psh',
         }
         if record.exc_info:
             log_entry['exception'] = self.formatException(record.exc_info)

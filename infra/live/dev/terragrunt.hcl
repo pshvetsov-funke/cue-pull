@@ -20,7 +20,8 @@ inputs = {
   
   # PubSub
   subscription_name = "cue-ex-playout-subscription-dev"
-  pubsub_topic_id = "cue-ex-playout-topic"
+  pubsub_topic_id = "cue-ex-playout-topic-dev"
+  pubsub_retention_duration = "604800s"
 
   # Cloud Run Function
   cloud_run_function_name = "cue-ex-playout-dev"
